@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rag-toolkit"
+version = "0.1.0"
+description = "Production-grade hybrid retrieval + reranking for RAG. Pluggable chunkers, embedders, vector stores. Batteries included."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Prayas Jain", email = "prayas1711@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["rag", "retrieval", "llm", "embeddings", "qdrant", "bge", "reranking", "hybrid-search"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.0",
+    "httpx>=0.24",
+    "tenacity>=8.0",
+]
+
+[project.optional-dependencies]
+bge = ["FlagEmbedding>=1.2.10", "torch>=2.0"]
+openai = ["openai>=1.0"]
+qdrant = ["qdrant-client>=1.7"]
+all = [
+    "FlagEmbedding>=1.2.10",
+    "torch>=2.0",
+    "openai>=1.0",
+    "qdrant-client>=1.7",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/prayas17/rag-toolkit"
+Issues = "https://github.com/prayas17/rag-toolkit/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["rag_toolkit"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
